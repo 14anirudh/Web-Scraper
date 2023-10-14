@@ -1,9 +1,10 @@
 "use server";
 import ScrapeProduct from "../models/product.model";
 import { connectToDB } from "../mongoose";
-import { generateEmailBody,sendEmail } from "../nodemailer";
 import { scrapeAmazonProduct } from "../scraper";
-import { getAveragePrice, getHighestPrice, getLowestPrice } from "../utils";
+import { getAveragePrice, getHighestPrice, getLowestPrice} from "../utils";
+import { User } from "@/types";
+import { generateEmailBody, sendEmail } from "../nodemailer";
 import { revalidatePath } from "next/cache";
 
 export async function scrapeAndStoreProduct(productUrl: string) {
@@ -22,11 +23,11 @@ export async function scrapeAndStoreProduct(productUrl: string) {
       url: scrapedProduct.url,
     });
 
-    if (existingProduct) {
+    if(existingProduct) {
       const updatedPriceHistory: any = [
         ...existingProduct.priceHistory,
-        { price: scrapedProduct.currentPrice },
-      ];
+        { price: scrapedProduct.currentPrice }
+      ]
 
       product = {
         ...scrapedProduct,
