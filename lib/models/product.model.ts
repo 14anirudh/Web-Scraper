@@ -28,7 +28,6 @@ const productSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const ScrapeProduct =
-  mongoose.models.Product || mongoose.model("ScrapeProduct", productSchema);
+const ScrapeProduct = mongoose.models.ScrapeProduct || mongoose.model("ScrapeProduct", productSchema);
 
 export default ScrapeProduct;
